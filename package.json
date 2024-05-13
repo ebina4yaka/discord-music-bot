@@ -1,0 +1,34 @@
+{
+  "name": "discord-music-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "biome format --write ./src",
+    "lint": "biome check --apply ./src",
+    "register": "node ./src/register.js",
+    "start": "node ./src/index.js",
+    "prepare": "lefthook install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT License",
+  "volta": {
+    "node": "20.13.1",
+    "pnpm": "9.1.0"
+  },
+  "dependencies": {
+    "@discord-player/extractor": "^4.4.7",
+    "@discordjs/builders": "^1.8.1",
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/rest": "^2.3.0",
+    "discord-api-types": "^0.37.83",
+    "discord-player": "^6.6.8",
+    "discord.js": "^14.15.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.7.3",
+    "lefthook": "1.6.10"
+  }
+}
