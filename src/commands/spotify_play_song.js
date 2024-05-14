@@ -15,7 +15,7 @@ module.exports = {
   run: async ({ client, interaction }) => {
     joinVoiceChannel(interaction)
     const queue = createQueue(client, interaction)
-    connectionQueue(queue, interaction, interaction.member.voice.channel)
+    await connectionQueue(queue, interaction, interaction.member.voice.channel)
 
     await interaction.deferReply()
     const url = interaction.options.getString('url')
