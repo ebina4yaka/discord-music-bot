@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('music_stop')
+    .setName('stop_music')
     .setDescription('再生を停止してbotを終了します'),
 
   run: async ({ client, interaction }) => {
