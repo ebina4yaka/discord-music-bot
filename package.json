@@ -21,14 +21,15 @@
   "dependencies": {
     "@discord-player/extractor": "^4.4.7",
     "@discordjs/builders": "^1.8.1",
-    "@discordjs/opus": "^0.9.0",
     "@discordjs/rest": "^2.3.0",
     "discord-api-types": "^0.37.83",
     "discord-player": "^6.6.8",
-    "discord.js": "^14.15.2"
+    "discord.js": "^14.15.2",
+    "mediaplex": "^0.0.9"
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
+    "@flydotio/dockerfile": "^0.5.7",
     "lefthook": "1.6.10"
   }
 }
