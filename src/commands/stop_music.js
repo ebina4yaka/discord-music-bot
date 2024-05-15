@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import winston from 'winston'
 
-export default {
+export const command = {
   data: new SlashCommandBuilder()
     .setName('stop_music')
     .setDescription('再生を停止してbotを終了します'),

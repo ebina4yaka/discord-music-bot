@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import { QueryType } from 'discord-player'
 import { addTracks } from '../player.js'
 
-export default {
+export const command = {
   data: new SlashCommandBuilder()
     .setName('play_song_apple_music')
     .setDescription('音楽を再生します')
