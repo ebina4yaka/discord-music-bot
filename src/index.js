@@ -3,6 +3,7 @@ const { Player } = require('discord-player')
 const { SpotifyExtractor } = require('@discord-player/extractor')
 const winston = require('winston')
 const { makeLogger } = require('./logger')
+const util = require('node:util')
 
 require('./instrument.js')
 
@@ -13,7 +14,7 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,
   ],
 })
-const commandFiles = require('./utils/commandFiles.js')
+const { commandFiles } = require('./files.js')
 
 client.slashcommands = {}
 client.player = new Player(client)
@@ -43,8 +44,41 @@ client.on('ready', async () => {
     winston.loggers.get('info').info(`playing track description: ${track.description}`)
     winston.loggers.get('info').info(`playing track url: ${track.url}`)
     winston.loggers.get('info').info(`playing track source: ${track.source}`)
-    queue.metadata.followUp(`再生中 **${track.title} ${track.author}**`)
+    queue.metadata.channel.send(`再生中 **${track.title} ${track.author}**`)
   })
+
+  player.events.on('audioTrackAdd', (_queue, track) => {
+    // Emitted when the player adds a single song to its queue
+    winston.loggers.get('info').info(`added track title: ${track.title}`)
+    winston.loggers.get('info').info(`added track author: ${track.author}`)
+    winston.loggers.get('info').info(`added track description: ${track.description}`)
+    winston.loggers.get('info').info(`added track url: ${track.url}`)
+    winston.loggers.get('info').info(`added track source: ${track.source}`)
+  })
+
+  player.events.on('audioTracksAdd', (_queue, track) => {
+    // Emitted when the player adds multiple songs to its queue
+    track.map((t) => {
+      winston.loggers.get('info').info(`added track title: ${t.title}`)
+      winston.loggers.get('info').info(`added track author: ${t.author}`)
+      winston.loggers.get('info').info(`added track description: ${t.description}`)
+      winston.loggers.get('info').info(`added track url: ${t.url}`)
+      winston.loggers.get('info').info(`added track source: ${t.source}`)
+    })
+  })
+
+  player.events.on('error', (queue, error) => {
+    winston.loggers.get('error').error(`Error event: ${error.message}`)
+    winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
+    throw error
+  })
+
+  player.events.on('playerError', (queue, error) => {
+    winston.loggers.get('error').error(`Error event: ${error.message}`)
+    winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
+    throw error
+  })
+
   winston.loggers.get('info').info('Bot is ready')
 })
 

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { QueryType } = require('discord-player')
-const addSingleTrack = require('../utils/addSingleTrack')
+const { addTracks } = require('../player')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,6 +11,6 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
-    await addSingleTrack(client, interaction, QueryType.SPOTIFY_SONG)
+    await addTracks(client, interaction, QueryType.SPOTIFY_SONG)
   },
 }

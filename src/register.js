@@ -1,7 +1,7 @@
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 const path = require('node:path')
-const commandFiles = require('./utils/commandFiles.js')
+const { commandFiles } = require('./files.js')
 
 const commands = commandFiles.map((file) => {
   const command = require(path.resolve(__dirname, `./commands/${file}`))

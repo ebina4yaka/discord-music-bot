@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { QueryType } = require('discord-player')
-const addMultipleTracks = require('../utils/addMultipleTracks')
+const { addTracks } = require('../player')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,6 +11,6 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
-    await addMultipleTracks(client, interaction, QueryType.APPLE_MUSIC_PLAYLIST)
+    await addTracks(client, interaction, QueryType.APPLE_MUSIC_PLAYLIST)
   },
 }
