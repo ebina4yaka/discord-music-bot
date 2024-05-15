@@ -55,13 +55,11 @@ const addTracks = async (_client, interaction, queryType) => {
     await interaction.followUp({
       content: `トラックをキューに追加しました\n**${result.tracks[0].title}**\n${result.tracks[0].url}`,
     })
-  }
-  if (result.playlist.type === 'playlist') {
+  } else if (result.playlist.type === 'playlist') {
     await interaction.followUp({
       content: `プレイリストをキューに追加しました\n**${result.playlist.title}: ${result.playlist.tracks.length}曲**\n${result.playlist.url}`,
     })
-  }
-  if (result.playlist.type === 'album') {
+  } else if (result.playlist.type === 'album') {
     await interaction.followUp({
       content: `アルバムをキューに追加しました\n**${result.playlist.title}: ${result.playlist.tracks.length}曲**\n${result.playlist.url}`,
     })
