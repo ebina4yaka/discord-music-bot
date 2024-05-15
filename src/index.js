@@ -1,7 +1,6 @@
 import util from 'node:util'
 import { SpotifyExtractor } from '@discord-player/extractor'
-// biome-ignore lint/style/noNamespaceImport: <explanation>
-import * as Sentry from '@sentry/node'
+import Sentry from '@sentry/node'
 import { Player } from 'discord-player'
 import { Client, GatewayIntentBits } from 'discord.js'
 import winston from 'winston'
