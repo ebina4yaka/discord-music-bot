@@ -5,7 +5,7 @@ import { Player } from 'discord-player'
 import { Client, GatewayIntentBits } from 'discord.js'
 import winston from 'winston'
 import { commandFiles } from './files.js'
-import { makeLogger } from './logger'
+import { makeLogger } from './logger.js'
 import './instrument.js'
 
 const client = new Client({
