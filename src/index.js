@@ -3,6 +3,9 @@ const { Player } = require('discord-player')
 const { SpotifyExtractor } = require('@discord-player/extractor')
 const winston = require('winston')
 const { makeLogger } = require('./logger')
+
+require('./instrument.js')
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
