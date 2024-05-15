@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from '@discordjs/builders'
-import { QueryType } from 'discord-player'
-import { addTracks } from '../player.js'
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { QueryType } = require('discord-player')
+const { addTracks } = require('../player')
 
-export default {
+module.exports = {
   data: new SlashCommandBuilder()
     .setName('play_album_apple_music')
     .setDescription('アルバムを再生します')

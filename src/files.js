@@ -1,10 +1,6 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+const fs = require('node:fs')
+const path = require('node:path')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-export const commandFiles = fs
+module.exports.commandFiles = fs
   .readdirSync(path.join(__dirname, './commands'))
   .filter((file) => file.endsWith('.js'))
