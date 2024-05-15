@@ -36,6 +36,11 @@ client.on('ready', async () => {
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   })
+  // this event is emitted whenever discord-player starts to play a track
+  player.events.on('playerStart', (queue, track) => {
+    // we will later define queue.metadata object while creating the queue
+    queue.metadata.channel.send(`再生中 **${track.title}**!`)
+  })
   winston.loggers.get('info').info('Bot is ready')
 })
 
