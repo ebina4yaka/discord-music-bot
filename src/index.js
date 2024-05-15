@@ -4,6 +4,7 @@ const { SpotifyExtractor } = require('@discord-player/extractor')
 const winston = require('winston')
 const { makeLogger } = require('./logger')
 const util = require('node:util')
+const Sentry = require('@sentry/node')
 
 require('./instrument.js')
 
@@ -67,25 +68,24 @@ client.on('ready', async () => {
     })
   })
 
-  player.events.on('error', (queue, error) => {
+  const errorHandler = async (queue, error) => {
     winston.loggers.get('error').error(`Error event: ${error.message}`)
     winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
     winston.loggers.get('error').error(`Error track: ${util.inspect(queue.currentTrack)}`)
     queue.metadata.channel.send(
       `エラーが発生しました\n**${queue.currentTrack.title}\n**${error.message}**`,
     )
-    throw error
-  })
 
-  player.events.on('playerError', (queue, error) => {
-    winston.loggers.get('error').error(`Error event: ${error.message}`)
-    winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
-    winston.loggers.get('error').error(`Error track: ${util.inspect(queue.currentTrack)}`)
-    queue.metadata.channel.send(
-      `エラーが発生しました\n**${queue.currentTrack.title}\n**${error.message}**`,
-    )
-    throw error
-  })
+    Sentry.withScope((scope) => {
+      scope.setExtra('queue', queue)
+      scope.setExtra('track', queue.currentTrack)
+      Sentry.captureException(error)
+    })
+    await Sentry.flush(2500)
+  }
+
+  player.events.on('error', errorHandler)
+  player.events.on('playerError', errorHandler)
 
   winston.loggers.get('info').info('Bot is ready')
 })
