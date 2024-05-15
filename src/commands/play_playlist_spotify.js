@@ -11,6 +11,6 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
-    await addMultipleTracks(interaction, client, QueryType.SPOTIFY_PLAYLIST)
+    await addMultipleTracks(client, interaction, QueryType.SPOTIFY_PLAYLIST)
   },
 }

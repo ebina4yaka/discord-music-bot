@@ -11,6 +11,6 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
-    await addSingleTrack(interaction, client, QueryType.APPLE_MUSIC_SONG)
+    await addSingleTrack(client, interaction, QueryType.APPLE_MUSIC_SONG)
   },
 }

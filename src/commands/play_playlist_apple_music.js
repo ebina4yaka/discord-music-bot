@@ -11,6 +11,6 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
-    await addMultipleTracks(interaction, client, QueryType.APPLE_MUSIC_PLAYLIST)
+    await addMultipleTracks(client, interaction, QueryType.APPLE_MUSIC_PLAYLIST)
   },
 }
