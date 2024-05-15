@@ -3,8 +3,8 @@ import { Routes } from 'discord-api-types/v9'
 import { commandFiles } from './files.js'
 
 const commands = commandFiles.map(async (file) => {
-  const { command } = await import(`./commands/${file}`)
-  return command.data.toJSON()
+  const command = await import(`./commands/${file}`)
+  return command.default.data.toJSON()
 })
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN)

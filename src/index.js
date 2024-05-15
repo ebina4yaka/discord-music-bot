@@ -20,8 +20,8 @@ client.slashcommands = {}
 client.player = new Player(client)
 
 for (const file of commandFiles) {
-  const { command } = await import(`./commands/${file}`)
-  client.slashcommands[command.data.name] = command
+  const command = await import(`./commands/${file}`)
+  client.slashcommands[command.default.data.name] = command.default
 }
 
 client.on('ready', async () => {
