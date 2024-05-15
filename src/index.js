@@ -43,7 +43,7 @@ client.on('ready', async () => {
     winston.loggers.get('info').info(`playing track description: ${track.description}`)
     winston.loggers.get('info').info(`playing track url: ${track.url}`)
     winston.loggers.get('info').info(`playing track source: ${track.source}`)
-    queue.metadata.followUp(`再生中 **${track.title}**`)
+    queue.metadata.followUp(`再生中 **${track.title} ${track.author}**`)
   })
   winston.loggers.get('info').info('Bot is ready')
 })
