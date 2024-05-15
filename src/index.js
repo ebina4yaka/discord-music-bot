@@ -38,8 +38,12 @@ client.on('ready', async () => {
   })
   // this event is emitted whenever discord-player starts to play a track
   player.events.on('playerStart', (queue, track) => {
-    winston.loggers.get('info').info(`playing track: ${track.toJSON()}`)
-    queue.metadata.followUp(`再生中 **${track.title}**!`)
+    winston.loggers.get('info').info(`playing track title: ${track.title}`)
+    winston.loggers.get('info').info(`playing track author: ${track.author}`)
+    winston.loggers.get('info').info(`playing track description: ${track.description}`)
+    winston.loggers.get('info').info(`playing track url: ${track.url}`)
+    winston.loggers.get('info').info(`playing track source: ${track.source}`)
+    queue.metadata.followUp(`再生中 **${track.title}**`)
   })
   winston.loggers.get('info').info('Bot is ready')
 })
