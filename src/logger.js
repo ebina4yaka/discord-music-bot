@@ -1,7 +1,7 @@
-const path = require('node:path')
-const winston = require('winston')
+import path from 'node:path'
+import winston from 'winston'
 
-function makeLogger(level, format, file) {
+export function makeLogger(level, format, file) {
   // <1>
   return {
     level: level,
@@ -13,7 +13,7 @@ function makeLogger(level, format, file) {
   }
 }
 
-function makeFormat(format) {
+export function makeFormat(format) {
   // <2>
   if (format === 'json') {
     return makeFormatJson()
@@ -24,17 +24,17 @@ function makeFormat(format) {
   throw new TypeError(`invalid format: '${format}'`)
 }
 
-function makeFormatJson(_level, _file, _format) {
+export function makeFormatJson(_level, _file, _format) {
   // <3>
   return winston.format.combine(winston.format.timestamp(), winston.format.json())
 }
 
-function makeFormatRaw(_level, _file, _format) {
+export function makeFormatRaw(_level, _file, _format) {
   // <4>
   return winston.format.printf(({ message }) => message)
 }
 
-function makeTransportFile(filename) {
+export function makeTransportFile(filename) {
   // <5>
   const dirname = process.env.LOG_DIRNAME || path.join(process.cwd(), 'log')
 
@@ -53,16 +53,9 @@ function makeTransportFile(filename) {
   })
 }
 
-function makeTransportConsole() {
+export function makeTransportConsole() {
   // <6>
   return new winston.transports.Console({
     format: makeFormatRaw(),
   })
 }
-
-module.exports.makeLogger = makeLogger
-module.exports.makeFormat = makeFormat
-module.exports.makeFormatJson = makeFormatJson
-module.exports.makeFormatRaw = makeFormatRaw
-module.exports.makeTransportFile = makeTransportFile
-module.exports.makeTransportConsole = makeTransportConsole

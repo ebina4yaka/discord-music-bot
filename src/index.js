@@ -1,12 +1,12 @@
-const { Client, GatewayIntentBits } = require('discord.js')
-const { Player } = require('discord-player')
-const { SpotifyExtractor } = require('@discord-player/extractor')
-const winston = require('winston')
-const { makeLogger } = require('./logger')
-const util = require('node:util')
-const Sentry = require('@sentry/node')
-
-require('./instrument.js')
+import util from 'node:util'
+import { SpotifyExtractor } from '@discord-player/extractor'
+import Sentry from '@sentry/node'
+import { Player } from 'discord-player'
+import { Client, GatewayIntentBits } from 'discord.js'
+import winston from 'winston'
+import { commandFiles } from './files.js'
+import { makeLogger } from './logger'
+import './instrument.js'
 
 const client = new Client({
   intents: [
@@ -15,14 +15,13 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,
   ],
 })
-const { commandFiles } = require('./files.js')
 
 client.slashcommands = {}
 client.player = new Player(client)
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`)
-  client.slashcommands[command.data.name] = command
+  const command = await import(`./commands/${file}`)
+  client.slashcommands[command.default.data.name] = command.default
 }
 
 client.on('ready', async () => {
@@ -69,19 +68,17 @@ client.on('ready', async () => {
   })
 
   const errorHandler = async (queue, error) => {
-    winston.loggers.get('error').error(`Error event: ${error.message}`)
-    winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
-    winston.loggers.get('error').error(`Error track: ${util.inspect(queue.currentTrack)}`)
-    queue.metadata.channel.send(
-      `エラーが発生しました\n**${queue.currentTrack.title}\n**${error.message}**`,
-    )
-
     Sentry.withScope((scope) => {
       scope.setExtra('queue', queue)
       scope.setExtra('track', queue.currentTrack)
       Sentry.captureException(error)
     })
     await Sentry.flush(2500)
+
+    winston.loggers.get('error').error(`Error event: ${error.message}`)
+    winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
+    winston.loggers.get('error').error(`Error track: ${util.inspect(queue.currentTrack)}`)
+    queue.metadata.channel.send(`エラーが発生しました\n**${error.message}**`)
   }
 
   player.events.on('error', errorHandler)

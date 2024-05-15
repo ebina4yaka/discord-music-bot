@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const winston = require('winston')
+import { SlashCommandBuilder } from '@discordjs/builders'
+import winston from 'winston'
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('stop_music')
     .setDescription('再生を停止してbotを終了します'),

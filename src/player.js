@@ -1,6 +1,6 @@
-const { useMainPlayer } = require('discord-player')
+import { useMainPlayer } from 'discord-player'
 
-const addTracks = async (_client, interaction, queryType) => {
+export async function addTracks(_client, interaction, queryType) {
   joinVoiceChannel(interaction)
 
   const player = useMainPlayer()
@@ -98,5 +98,3 @@ const joinVoiceChannel = (interaction) => {
     })
   }
 }
-
-module.exports.addTracks = addTracks
