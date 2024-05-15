@@ -70,12 +70,18 @@ client.on('ready', async () => {
   player.events.on('error', (queue, error) => {
     winston.loggers.get('error').error(`Error event: ${error.message}`)
     winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
+    queue.metadata.channel.send(
+      `エラーが発生しました\n**${queue.currentTrack.title}\n**${error.message}**`,
+    )
     throw error
   })
 
   player.events.on('playerError', (queue, error) => {
     winston.loggers.get('error').error(`Error event: ${error.message}`)
     winston.loggers.get('error').error(`Error queue: ${util.inspect(queue)}`)
+    queue.metadata.channel.send(
+      `エラーが発生しました\n**${queue.currentTrack.title}\n**${error.message}**`,
+    )
     throw error
   })
 

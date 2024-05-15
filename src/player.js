@@ -73,7 +73,7 @@ const addTracks = async (_client, interaction, queryType) => {
     }
   } catch (error) {
     interaction.followUp({
-      content: `再生に失敗しました\n**${error.message}**`,
+      content: `再生に失敗しました\n**${queue.currentTrack.title}\n**${error.message}**`,
     })
   } finally {
     // release the task we acquired to let other tasks to be executed
