@@ -39,7 +39,7 @@ client.on('ready', async () => {
   // this event is emitted whenever discord-player starts to play a track
   player.events.on('playerStart', (queue, track) => {
     // we will later define queue.metadata object while creating the queue
-    queue.metadata.channel.send(`再生中 **${track.title}**!`)
+    queue.metadata.followUp(`再生中 **${track.title}**!`)
   })
   winston.loggers.get('info').info('Bot is ready')
 })
