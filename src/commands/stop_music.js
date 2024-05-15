@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
+const winston = require('winston')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -14,6 +15,8 @@ module.exports = {
         ephemeral: true,
       })
     }
+
+    winston.loggers.get('info').info(`queue delete: ${queue}`)
 
     queue.delete()
 
