@@ -2,6 +2,7 @@ const joinVoiceChannel = require('./joinVoiceChannel')
 const createQueue = require('./createQueue')
 const connectionQueue = require('./connectionQueue')
 const search = require('./search')
+const winston = require('winston')
 
 module.exports = async (client, interaction, queryType) => {
   joinVoiceChannel(interaction)
@@ -21,6 +22,10 @@ module.exports = async (client, interaction, queryType) => {
   }
 
   queue.addTrack(tracks)
+
+  tracks.map((track) => {
+    winston.loggers.get('info').info(`Added track: ${track}`)
+  })
 
   if (!queue.isPlaying()) {
     queue.play(tracks)

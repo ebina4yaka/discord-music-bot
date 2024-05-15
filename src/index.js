@@ -1,6 +1,8 @@
 const { Client, GatewayIntentBits } = require('discord.js')
 const { Player } = require('discord-player')
 const { SpotifyExtractor } = require('@discord-player/extractor')
+const winston = require('winston')
+const { makeLogger } = require('./logger')
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -19,8 +21,10 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', async () => {
-  // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-  console.log(`Logged in as ${client.user.tag}!`)
+  winston.loggers.add('info', makeLogger('info', 'json', 'info.log'))
+  winston.loggers.add('error', makeLogger('error', 'json', 'error.log'))
+
+  winston.loggers.get('info').info(`Logged in as ${client.user.tag}!`)
   // this is the entrypoint for discord-player based application
   const player = new Player(client)
   // Now, lets load all the default extractors, except 'YouTubeExtractor'. You can remove the filter if you want to load all the extractors.
@@ -29,6 +33,7 @@ client.on('ready', async () => {
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   })
+  winston.loggers.get('info').info('Bot is ready')
 })
 
 client.on('interactionCreate', async (interaction) => {

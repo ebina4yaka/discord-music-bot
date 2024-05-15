@@ -42,6 +42,7 @@ COPY --from=build /app /app
 
 ENV FFMPEG_PATH='/usr/bin/ffmpeg'
 ENV DP_FORCE_YTDL_MOD='@distube/ytdl-core'
+ENV LOG_CONSOLE=1
 
 # Install ffmpeg
 RUN echo "deb https://www.deb-multimedia.org bookworm main non-free" > /etc/apt/sources.list
