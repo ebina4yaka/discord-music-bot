@@ -70,8 +70,8 @@ client.on('ready', async () => {
 
   const errorHandler = async (queue, error) => {
     Sentry.withScope((scope) => {
-      scope.setExtra('queue', queue)
-      scope.setExtra('track', queue.currentTrack)
+      scope.setExtra('queue', util.inspect(queue))
+      scope.setExtra('tracks', util.inspect(queue.tracks))
       Sentry.captureException(error)
     })
     await Sentry.flush(2500)
