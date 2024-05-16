@@ -13,7 +13,7 @@ const addTracks = async (_client, interaction, queryType) => {
     leaveOnEnd: true,
     leaveOnEndCooldown: 60000,
     pauseOnEmpty: true,
-    preferBridgedMetadata: true,
+    preferBridgedMetadata: false,
     disableBiquad: true,
   })
 
