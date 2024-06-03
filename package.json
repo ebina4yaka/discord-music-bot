@@ -35,6 +35,6 @@
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
     "@flydotio/dockerfile": "^0.5.7",
-    "lefthook": "1.6.11"
+    "lefthook": "1.6.15"
   }
 }
