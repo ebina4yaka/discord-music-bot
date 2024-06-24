@@ -33,8 +33,8 @@
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.3",
+    "@biomejs/biome": "1.8.2",
     "@flydotio/dockerfile": "^0.5.7",
-    "lefthook": "1.6.11"
+    "lefthook": "1.6.18"
   }
 }
